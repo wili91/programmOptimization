@@ -16,7 +16,7 @@
 
 
 
-#include "../include/excerciseAandB.h"
+#include "../include/excerciseA.h"
 #include "../include/TimeMeasurement.h"
 
 
@@ -27,18 +27,18 @@ int  main(int arg, char** argc) {
 	genrate_array(array);
 	std::cout<<"Minimum one loop:" << std::endl;
 	std::cout<<" " << std::endl;
-	genrate_and_measure<start_size, double>(plain_minimum, array);
+	time_measure<start_size, double>(plain_minimum, array);
 
 	std::cout<<" " << std::endl;
 	std::cout<<"Minimum two loops:" << std::endl;
 	std::cout<<" " << std::endl;
-	genrate_and_measure<start_size, double>(minimum_two_loops, array);
+	time_measure<start_size, double>(minimum_two_loops, array);
 
 
 	std::cout<<" " << std::endl;
 	std::cout<<"Minimum Prefetch:" << std::endl;
 	std::cout<<" " << std::endl;
-	genrate_and_measure<start_size, double>(minimum_prefetch, array);
+	time_measure<start_size, double>(minimum_prefetch, array);
 
 	return 0;
 }
