@@ -19,7 +19,7 @@ T plain_minimum(std::array<T,N>& arr, std::size_t start_index,std::size_t end_in
 {
 	T min = arr[start_index];
 
-	for(std::size_t i = start_index; i< end_index ; i++){
+	for(std::size_t i = start_index+1; i< end_index ; i++){
 		if(min > arr[i])
 		{
 			min = arr[i];
@@ -128,6 +128,7 @@ template<std::size_t N, typename T>
 T prefetch_minimum_index(std::array<T,N>& arr, std::size_t start_index,std::size_t end_index)
 {
 
+	genrate_array(arr);
 	std::size_t min_index = start_index;
 
 	//outer loops step is once the count of what a cache line may contain

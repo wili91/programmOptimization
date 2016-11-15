@@ -15,13 +15,24 @@
 #include <stdio.h>
 #include <random>
 #include <chrono>
+#include <memory>
+#include "arrayMethods.h"
 
 //constants 64 Bytes Cache Line (16 int)
-extern const std::size_t  	CACHE_LINE_BYTES = 64;
+static const std::size_t  	CACHE_LINE_BYTES = 64;
 //4096 Byte Cache Size
-extern const std::size_t 	L1_CACHE_SIZE_INT = 1024;
+static const std::size_t 	L1_CACHE_SIZE_INT = 1024;
 
+const std::size_t start_size =1024;
+enum SORTING{
+		selection_sort
+	 } ;
 
+enum MINIMUM{
+		plain_min,
+		twoloops_min,
+		prefretch_min
+} ;
 
 
 #endif /* CONSTANTS_H_ */

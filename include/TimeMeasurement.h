@@ -1,54 +1,100 @@
-#include <array>
-#include <limits>
-#include "gtest/gtest.h"
 #include <iostream>
 #include <string>
 #include <stdio.h>
-#include <random>
+#include "constants.h"
 
 template<std::size_t N, typename T>
-void genrate_array(std::array<T, N>& test_arr){
-	//generate the array
-	std::random_device rd;
-	std::mt19937 mt(rd());
-	std::uniform_real_distribution<T> dist_int( 0.0,500.0);
+struct Measurement {
+	void measure_time_sorting(std::array<T, N>& test_arr, SORTING sort,
+			MINIMUM min) {
 
-	for(std::size_t i = 0; i< test_arr.size() ; i++)
-	{
-		test_arr[i] = dist_int(mt);
-	}
-}
+		auto sFunc = chooseSorting(sort);
+		auto mFunc = chooseMinimum(min);
 
-template<std::size_t N, typename T>
-void time_measure(T (*pFunc)(std::array<T, N>&, std::size_t, std::size_t), std::array<T,N> test_arr)
-{
-	std::array<int, L1_CACHE_SIZE_INT > cache_flush_arr;
-
-	//flush the Cache
-	for(std::size_t i = 0; i < cache_flush_arr.size(); i++) {
-		cache_flush_arr[i] = std::numeric_limits<int>::max();
-	}
-
-	std::size_t index = test_arr.size();
-	T output;
-	while(index > 2)
-	{
-		//flush
-		//flush the Cache
-		for(std::size_t i = 0; i < cache_flush_arr.size(); i++) {
-			cache_flush_arr[i] = std::numeric_limits<int>::max();
-		}
+		flush_cache();
 
 		auto start_time = std::chrono::high_resolution_clock::now();
-		output = pFunc(test_arr, index, test_arr.size());
+		sFunc(test_arr, mFunc);
 		auto end_time = std::chrono::high_resolution_clock::now();
 
-		std::cout << "Minimum: "<< output << "    Time: " <<  std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time).count()<<std::endl;
+		std::cout
+				<< std::chrono::duration_cast<std::chrono::milliseconds>(
+						end_time - start_time).count() << "      ";
 
+		std::shared_ptr<std::array<T, N * 2>> next_array(
+				new std::array<T, N * 2>);
 
-		index = index/2;
+		Measurement<N * 2, T> tm;
+		tm.measure_time_sorting(*next_array, sort, min);
 	}
 
-	//genrate_and_measure<N/2, T>();
+	void measure_time_sorting_all(std::array<T, N>& test_arr, SORTING sort) {
 
-}
+		std::cout << N << "      ";
+		auto sFunc = chooseSorting(sort);
+
+
+		for (int min = MINIMUM::plain_min; min <= MINIMUM::prefretch_min; min++) {
+			flush_cache();
+			auto mFunc = chooseMinimum(min);
+			auto start_time = std::chrono::high_resolution_clock::now();
+			sFunc(test_arr, mFunc);
+			auto end_time = std::chrono::high_resolution_clock::now();
+
+			std::cout
+					<< std::chrono::duration_cast<std::chrono::milliseconds>(
+							end_time - start_time).count() << "      ";
+		}
+
+		std::cout << std::endl;
+		std::shared_ptr<std::array<T, N * 2>> next_array(
+				new std::array<T, N * 2>);
+
+		Measurement<N * 2, T> tm;
+		tm.measure_time_sorting_all(*next_array, sort);
+	}
+
+	auto chooseSorting(int sort) {
+		switch (sort) {
+		case 0:
+			return selection_Sort<N, T> ;
+			break;
+		default:
+			std::cout << std::endl << "No such sorting function" << std::endl;
+			exit(1);
+		}
+	}
+
+	auto chooseMinimum(int min) {
+		switch (min) {
+		case 0:
+			return plain_minimum_index<N, T> ;
+			break;
+		case 1:
+			return minimum_two_loops_index<N, T> ;
+			break;
+		case 2:
+			return prefetch_minimum_index<N, T> ;
+			break;
+		default:
+			std::cout << std::endl << "No such sorting function" << std::endl;
+			exit(1);
+		}
+	}
+
+};
+
+template<typename T>
+struct Measurement<2048u, T> {
+	void measure_time_sorting(std::array<T, 2048u>& test_arr, SORTING sort,
+			MINIMUM min) {
+
+	}
+
+	void measure_time_sorting_all(std::array<T, 2048u>& test_arr,
+			SORTING sort) {
+
+	}
+
+};
+
