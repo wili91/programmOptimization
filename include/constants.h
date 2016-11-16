@@ -24,7 +24,7 @@ static const std::size_t  	CACHE_LINE_BYTES = 64;
 static const std::size_t 	L1_CACHE_SIZE_INT = 1024;
 
 const std::size_t start_size =2048;
-const std::size_t end_size =262144;
+const std::size_t end_size =524288;
 enum SORTING{
 		selection_sort,
 		none

@@ -2,6 +2,7 @@
 #include <string>
 #include <stdio.h>
 #include "constants.h"
+#include <algorithm>
 
 template<std::size_t N, typename T>
 struct Measurement {
@@ -30,16 +31,23 @@ struct Measurement {
 
 	void measure_time_sorting_all(std::array<T, N>& test_arr, ARRAYTYPE type,
 			SORTING sort) {
+
+		//to deep copy the test array
+		std::shared_ptr<std::array<T, N>> work_array(
+				new std::array<T, N>);
 		generate_Array_type(type, test_arr);
+
+
 		std::cout << N << ",";
 		auto sFunc = chooseSorting(sort);
 
 		for (int min = MINIMUM::plain_min; min <= MINIMUM::prefretch_min;
 				min++) {
+			(*work_array) = test_arr;
 			flush_cache();
 			auto mFunc = chooseMinimum(min);
 			auto start_time = std::chrono::high_resolution_clock::now();
-			sFunc(test_arr, mFunc);
+			sFunc(*work_array, mFunc);
 			auto end_time = std::chrono::high_resolution_clock::now();
 
 			std::cout
