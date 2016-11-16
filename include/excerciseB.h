@@ -17,7 +17,8 @@ void selection_Sort(std::array<T,N>& arr,
 {
 	for(std::size_t index =0; index < arr.size(); index++)
 	{
-		std::swap(arr[index], arr[pFunc(arr, index, arr.size())]);
+		std::size_t min = pFunc(arr, index, arr.size());
+		std::swap(arr[index], arr[min]);
 	}
 }
 

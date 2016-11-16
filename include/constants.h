@@ -23,16 +23,24 @@ static const std::size_t  	CACHE_LINE_BYTES = 64;
 //4096 Byte Cache Size
 static const std::size_t 	L1_CACHE_SIZE_INT = 1024;
 
-const std::size_t start_size =1024;
+const std::size_t start_size =2048;
+const std::size_t end_size =262144;
 enum SORTING{
-		selection_sort
+		selection_sort,
+		none
 	 } ;
 
 enum MINIMUM{
 		plain_min,
 		twoloops_min,
-		prefretch_min
-} ;
+		prefretch_min,
+		no_min} ;
 
+enum ARRAYTYPE{
+		random_arr,
+		asc_arr,
+		desc_arr,
+		no_arr
+} ;
 
 #endif /* CONSTANTS_H_ */

@@ -32,7 +32,7 @@ template<std::size_t N, typename T>
 void genrate_array_asc(std::array<T, N>& test_arr) {
 	for (std::size_t i = 0; i < test_arr.size(); i++) {
 		//better than c stile
-		test_arr[i] = dynamic_cast<T> (i);
+		test_arr[i] = (T) (i);
 	}
 }
 
@@ -40,7 +40,7 @@ template<std::size_t N, typename T>
 void genrate_array_desc(std::array<T, N>& test_arr) {
 	for (std::size_t i = 0; i < test_arr.size(); i++) {
 		//better than c stile
-		test_arr[i] = dynamic_cast<T> (test_arr.size()-i);
+		test_arr[i] = (T)  (test_arr.size()-i);
 	}
 }
 

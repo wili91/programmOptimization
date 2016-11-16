@@ -28,13 +28,14 @@ struct Measurement {
 		tm.measure_time_sorting(*next_array, sort, min);
 	}
 
-	void measure_time_sorting_all(std::array<T, N>& test_arr, SORTING sort) {
-
-		std::cout << N << "      ";
+	void measure_time_sorting_all(std::array<T, N>& test_arr, ARRAYTYPE type,
+			SORTING sort) {
+		generate_Array_type(type, test_arr);
+		std::cout << N << ",";
 		auto sFunc = chooseSorting(sort);
 
-
-		for (int min = MINIMUM::plain_min; min <= MINIMUM::prefretch_min; min++) {
+		for (int min = MINIMUM::plain_min; min <= MINIMUM::prefretch_min;
+				min++) {
 			flush_cache();
 			auto mFunc = chooseMinimum(min);
 			auto start_time = std::chrono::high_resolution_clock::now();
@@ -43,15 +44,15 @@ struct Measurement {
 
 			std::cout
 					<< std::chrono::duration_cast<std::chrono::milliseconds>(
-							end_time - start_time).count() << "      ";
+							end_time - start_time).count() << ",";
 		}
-
 		std::cout << std::endl;
+
 		std::shared_ptr<std::array<T, N * 2>> next_array(
 				new std::array<T, N * 2>);
 
 		Measurement<N * 2, T> tm;
-		tm.measure_time_sorting_all(*next_array, sort);
+		tm.measure_time_sorting_all(*next_array, type, sort);
 	}
 
 	auto chooseSorting(int sort) {
@@ -82,18 +83,35 @@ struct Measurement {
 		}
 	}
 
+	void generate_Array_type(int type, std::array<T, N>& test_arr) {
+		switch (type) {
+		case 0:
+			genrate_array(test_arr);
+			break;
+		case 1:
+			genrate_array_asc(test_arr) ;
+			break;
+		case 2:
+			genrate_array_desc(test_arr)  ;
+			break;
+		default:
+			std::cout << std::endl << "No such generation function" << std::endl;
+			exit(1);
+		}
+	}
+
 };
 
 template<typename T>
-struct Measurement<2048u, T> {
-	void measure_time_sorting(std::array<T, 2048u>& test_arr, SORTING sort,
+struct Measurement<end_size, T> {
+	void measure_time_sorting(std::array<T, end_size>& test_arr, SORTING sort,
 			MINIMUM min) {
 
 	}
 
-	void measure_time_sorting_all(std::array<T, 2048u>& test_arr,
-			SORTING sort) {
-
+	void measure_time_sorting_all(std::array<T, end_size>& test_arr,
+			ARRAYTYPE type, SORTING sort) {
+		std::cout<< "Ended," << test_arr[0]<<"," << type<<","  <<sort<<","  <<std::endl;
 	}
 
 };
