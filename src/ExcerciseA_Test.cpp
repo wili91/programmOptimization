@@ -38,6 +38,9 @@ TEST(PlainMinimumTest, plain_minimum_string){
 
 	std::array<std::string, 7> arr3 ={"Äpfel ", "und ", " Birnen ", "und", " Bananen ", "sind ", "gesund."};
 	EXPECT_EQ(" Bananen ", plain_minimum(arr3,0 ,  arr3.size()));
+
+	std::array<std::string, 7> arr4 ={"aaa ", "bb ", " a ", "", "cc", "abc", "xyz"};
+	EXPECT_EQ("", plain_minimum(arr4,0 ,  arr3.size()));
 }
 
 //Test Minimum Two Loops
@@ -65,6 +68,9 @@ TEST(Two_loops_MinimumTest, two_loops_minimum_string){
 
 	std::array<std::string, 7> arr3 ={"Äpfel ", "und ", " Birnen ", "und", " Bananen ", "sind ", "gesund."};
 	EXPECT_EQ(" Bananen ", minimum_two_loops(arr3, 0 , arr3.size()));
+
+	std::array<std::string, 7> arr4 ={"aaa ", "bb ", " a ", "", "cc", "abc", "xyz"};
+	EXPECT_EQ("", minimum_two_loops(arr4,0 ,  arr3.size()));
 }
 
 
@@ -89,29 +95,36 @@ TEST(Prefetch_MinimumTest, minimum_prefetch_double){
 
 TEST(Prefetch_MinimumTest, minimum_prefetch_string){
 	std::array<std::string, 3> arr ={"Hallo ", "Welt ", "!"};
-	EXPECT_EQ("!", minimum_two_loops(arr, 0 ,arr.size()));
+	EXPECT_EQ("!", minimum_prefetch(arr, 0 ,arr.size()));
 
 	std::array<std::string, 7> arr3 ={"Äpfel ", "und ", " Birnen ", "und", " Bananen ", "sind ", "gesund."};
-	EXPECT_EQ(" Bananen ", minimum_two_loops(arr3, 0 , arr3.size()));
+	EXPECT_EQ(" Bananen ", minimum_prefetch(arr3, 0 , arr3.size()));
+
+	std::array<std::string, 7> arr4 ={"aaa ", "bb ", " a ", "", "cc", "abc", "xyz"};
+	EXPECT_EQ("", minimum_prefetch(arr4,0 ,  arr3.size()));
 }
 
 //Index Minimum Tests
 TEST(IndexMinimumTest, minimum_index){
 	std::array<int, 6> arr ={9,7,6,6,7,1};
-	EXPECT_EQ(5, plain_minimum_index(arr, 3 ,arr.size()));
+	size_t min = 5;
+	EXPECT_EQ(min, plain_minimum_index(arr, 3 ,arr.size()));
 	//std::cout<<"Minimum is "<< arr[minimum_index(arr,0 ,  3,arr.size())]<< std::endl;
 
 	std::array<int, 6> arr1 ={1,9,7,0,6,7};
-	EXPECT_EQ(3, plain_minimum_index(arr1, 0,4));
+	min = 3;
+	EXPECT_EQ(min, plain_minimum_index(arr1, 0,4));
 	//std::cout<<"Minimum is "<< arr1[plain_minimum_index(arr1, 0,4)]<< std::endl;
-
-	EXPECT_EQ(0, plain_minimum_index(arr1, 0,3));
+	min = 0;
+	EXPECT_EQ(min, plain_minimum_index(arr1, 0,3));
 	//std::cout<<"Minimum is "<< arr1[plain_minimum_index(arr1, 0,3)]<< std::endl;
 
-	EXPECT_EQ(3, plain_minimum_index(arr1, 0,arr1.size()));
+	min = 3;
+	EXPECT_EQ(min, plain_minimum_index(arr1, 0,arr1.size()));
 	//std::cout<<"Minimum is "<< arr1[plain_minimum_index(arr1, 0,arr1.size())]<< std::endl;
 
-	EXPECT_EQ(4, plain_minimum_index(arr1, 4,arr1.size()));
+	min = 4;
+	EXPECT_EQ(min, plain_minimum_index(arr1, 4,arr1.size()));
 	//std::cout<<"Minimum is "<< arr1[plain_minimum_index(arr1, 4,arr1.size())]<< std::endl;
 }
 

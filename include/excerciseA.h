@@ -32,7 +32,7 @@ T plain_minimum(std::array<T, N>& arr, std::size_t start_index,
  *   it has not optimization
  */
 template<std::size_t N, typename T>
-T plain_minimum_index(std::array<T, N>& arr, std::size_t start_index,
+std::size_t plain_minimum_index(std::array<T, N>& arr, std::size_t start_index,
 		std::size_t end_index) {
 
 	std::size_t min_index = start_index;
@@ -73,7 +73,7 @@ T minimum_two_loops(std::array<T, N>& arr, std::size_t start_index,
  *   it has two loops but is not really optimized
  */
 template<std::size_t N, typename T>
-T minimum_two_loops_index(std::array<T, N>& arr, std::size_t start_index,
+std::size_t minimum_two_loops_index(std::array<T, N>& arr, std::size_t start_index,
 		std::size_t end_index) {
 	std::size_t min_index = start_index;
 
@@ -120,7 +120,7 @@ T minimum_prefetch(std::array<T, N>& arr, std::size_t start_index,
  *   it has two loops and does prefetching
  */
 template<std::size_t N, typename T>
-T prefetch_minimum_index(std::array<T, N>& arr, std::size_t start_index,
+std::size_t prefetch_minimum_index(std::array<T, N>& arr, std::size_t start_index,
 		std::size_t end_index) {
 
 	std::size_t min_index = start_index;
