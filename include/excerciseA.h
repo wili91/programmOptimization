@@ -78,7 +78,7 @@ std::size_t minimum_two_loops_index(std::array<T, N>& arr, std::size_t start_ind
 	std::size_t min_index = start_index;
 
 	//outer loops step is once the count of what a cache line may contain
-	std::size_t outer_step = CACHE_LINE_BYTES / sizeof(T);
+	const std::size_t outer_step = CACHE_LINE_BYTES / sizeof(T);
 	//inner loops step has to be one
 
 	for (std::size_t i = start_index; i < end_index; i += outer_step) {
@@ -126,7 +126,7 @@ std::size_t prefetch_minimum_index(std::array<T, N>& arr, std::size_t start_inde
 	std::size_t min_index = start_index;
 
 	//outer loops step is once the count of what a cache line may contain
-	std::size_t outer_step = CACHE_LINE_BYTES / sizeof(T);
+	const std::size_t outer_step = CACHE_LINE_BYTES / sizeof(T);
 	//inner loops step has to be one
 
 	for (std::size_t i = start_index; i < end_index; i += outer_step) {
