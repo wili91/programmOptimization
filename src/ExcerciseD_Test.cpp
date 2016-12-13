@@ -21,7 +21,7 @@ class ExcerciseD: public ::testing::Test {
 
 TEST(BottomUpMergeSort, double) {
 	//because unique ptr may be buggy in reclaiming ressouces
-	std::shared_ptr<std::array<double, 100000000>> array(new std::array<double, 100000000>);
+	std::shared_ptr<std::array<double, 400000000>> array(new std::array<double, 400000000>);
 
 	genrate_array_desc(*array);
 //	for (std::size_t i = 0; i < array->size(); i++) {

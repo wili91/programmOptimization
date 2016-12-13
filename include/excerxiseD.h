@@ -7,6 +7,7 @@ void merge(std::array<T, N>& arr1, std::array<T, N>& help, std::size_t left,
 
 	std::size_t left_Runitr = left;
 	std::size_t right_Runitr = mid;
+
 	for (std::size_t iter = left; iter < right; iter++) {
 		if (left_Runitr < mid
 				&& (right_Runitr >= right  || arr1[right_Runitr] >= arr1[left_Runitr])) {
@@ -16,6 +17,13 @@ void merge(std::array<T, N>& arr1, std::array<T, N>& help, std::size_t left,
 			help[iter] = arr1[right_Runitr];
 			right_Runitr++;
 		}
+
+//		if(iter <= mid) {//sort ascending
+//
+//
+//		} else {		//sort decending
+//
+//		}
 	}
 }
 template<std::size_t N, typename T>
