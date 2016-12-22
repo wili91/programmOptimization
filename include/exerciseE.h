@@ -86,16 +86,17 @@ void hybrid_partition_sort(std::array<T, N>& array, size_t left, size_t right) {
 		//second: pivot is greater than 66% of the range
 //		if () {
 			//devide in half
+			std::size_t mid = (left + right) / 2;
+			hybrid_partition_sort(array, left, mid);
+			hybrid_partition_sort(array, mid + 1, right);
 
-			three_way_partition_sort(array, left, mid);
-			three_way_partition_sort(array, mid + 1, right);
 			//do single merge Step
 			std::shared_ptr<std::array<T, N> > help_array(new std::array<T, N>);
-			bitonic_merge(array, *help_array, (right-left));
+			normal_merge(array, *help_array, (right-left));
 		} else {
 			//Do normal 3 way Partion
-			three_way_partition_sort(array, left, i);
-			three_way_partition_sort(array, j, right);
+			hybrid_partition_sort(array, left, i);
+			hybrid_partition_sort(array, j, right);
 		}
 	}
 }
