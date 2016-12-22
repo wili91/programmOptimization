@@ -34,7 +34,7 @@ TEST(InsertionSort, double){
 			new std::array<double, 5>);
 	genrate_array_desc(*a2);
 
-	prefetch_Insertionsort(*a2);
+	prefetch_Insertionsort(*a2, 0,array->size());
 
 	compare = 1.0;
 	for (std::size_t i = 0; i < a2->size(); i++) {
