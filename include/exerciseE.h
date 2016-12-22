@@ -1,5 +1,7 @@
 #include "constants.h"
+#include "excerciseA.h"
 #include "excerciseC.h"
+#include "excerxiseD.h"
 
 /**
  * Create 3- Partions
@@ -15,16 +17,16 @@ void partitioning(std::array<T, N>& array, size_t left, size_t right, size_t &i,
 
 	std::size_t itr = left;
 
-	T pivot = array[right-1];
+	T pivot = array[right - 1];
 
 	//Lomuto partition scheme for three partitions
-	while(itr < right) {
-		if(array[itr]< pivot) {
+	while (itr < right) {
+		if (array[itr] < pivot) {
 			std::swap(array[itr++], array[left++]);
-		} else if (array[itr]== pivot) {
+		} else if (array[itr] == pivot) {
 			itr++; //no swapping needed is equal
 		} else {
-			std::swap(array[itr], array[right-1]);
+			std::swap(array[itr], array[right - 1]);
 			right--;
 		}
 	}
