@@ -69,22 +69,10 @@ void hybrid_partition_sort(std::array<T, N>& array, size_t left, size_t right) {
 		size_t j = 0;
 		partitioning(array, left, right, i, j);
 
-		/**
-		 * Detect wort case for Quick sort
-		 *
-		 * Fist:   largest element  pivot
-		 * Second: smalles element  pivot
-		 */
 
-		std::size_t mid = (left + right) / 2;
-		if ((prefetch_maximum_index(array, left, mid) == array[mid - 1])
-				|| (prefetch_maximum_index(array, mid + 1, right)	== array[right - 1])
-				|| (prefetch_minimum_index(array, left, mid) 		== array[mid - 1])
-				|| (prefetch_minimum_index(array, mid + 1, right) 	== array[right - 1])) {
-		//detect worst case by
-		//first:  pivot is smaller than 33% of the range
-		//second: pivot is greater than 66% of the range
-//		if () {
+		//worst case of quick sort is if one side is QS_WORST_CASE  times as big as the other
+		if ( WORST_CASE_QS *(i -left) < (right-j) ||  (i -left) > WORST_CASE_QS *(right-j)) {
+			std::cout <<"entered  Worst case " << std::endl;
 			//devide in half
 			std::size_t mid = (left + right) / 2;
 			hybrid_partition_sort(array, left, mid);
