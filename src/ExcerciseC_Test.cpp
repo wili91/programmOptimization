@@ -30,13 +30,16 @@ TEST(InsertionSort, double){
 		compare++;
 	}
 
+}
+
+TEST(InsertionSort_Prefetch, double){
 	std::shared_ptr<std::array<double, 5>> a2(
 			new std::array<double, 5>);
 	genrate_array_desc(*a2);
 
-	prefetch_Insertionsort(*a2, 0,array->size());
+	prefetch_Insertionsort(*a2, 0,a2->size());
 
-	compare = 1.0;
+	double compare = 1.0;
 	for (std::size_t i = 0; i < a2->size(); i++) {
 
 
@@ -46,4 +49,3 @@ TEST(InsertionSort, double){
 		compare++;
 	}
 }
-
