@@ -143,4 +143,33 @@ std::size_t prefetch_minimum_index(std::array<T, N>& arr, std::size_t start_inde
 	return min_index;
 }
 
+/**
+ *  This method returns the index of the minimum of any array,
+ *   it has two loops and does prefetching
+ */
+template<std::size_t N, typename T>
+std::size_t prefetch_maximum_index(std::array<T, N>& arr, std::size_t start_index,
+		std::size_t end_index) {
+
+	std::size_t max_index = start_index;
+
+	//outer loops step is once the count of what a cache line may contain
+	const std::size_t outer_step = CACHE_LINE_BYTES / sizeof(T);
+	//inner loops step has to be one
+
+	for (std::size_t i = start_index; i < end_index; i += outer_step) {
+
+		__builtin_prefetch(&arr[i + outer_step + 1]);
+
+		for (std::size_t j = 0; j < outer_step && (i + j) < end_index; j++) {
+			if (arr[max_index] < arr[i + j]) {
+				max_index = i + j;
+			}
+		}
+	}
+
+	return max_index;
+}
+
+
 #endif /* EXCERCISEAANDB_H_ */
