@@ -38,7 +38,7 @@ void three_way_partition_sort(std::array<T, N>& array, size_t left,
 		size_t right) {
 
 	//Check the bounds
-	if (left < right && array.size() > 1) {
+	if (left < right && right > 1) {
 
 		size_t i = 0;
 		size_t j = 0;
