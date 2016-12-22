@@ -57,8 +57,10 @@ void three_way_partition_sort(std::array<T, N>& array, size_t left,
  */
 template<std::size_t N, typename T>
 void hybrid_partition_sort(std::array<T, N>& array, size_t left, size_t right) {
-	if ((right - left) <= SORTING_THRESGHOLD) {
+	std::cout <<"run size: " << (right - left)<< std::endl;
+	if ((right - left) <= SORTING_THRESGHOLD) { // This works
 		//sort via Insersion Sort when smaller than a certain threshhold
+		//no more recursion
 		prefetch_Insertionsort(array, left, right);
 	} else {
 
