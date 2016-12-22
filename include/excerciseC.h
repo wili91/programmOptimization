@@ -14,10 +14,10 @@ void simple_Insertionsort(std::array<T, N>& arr) {
 }
 
 template<std::size_t N, typename T>
-void prefetch_Insertionsort(std::array<T, N>& arr) {
+void prefetch_Insertionsort(std::array<T, N>& arr, std::size_t start, std::size_t end) {
 
 	const std::size_t OUTER_STEP = CACHE_LINE_BYTES / sizeof(T);
-	for (std::size_t i = 1; i < arr.size(); i++) {
+	for (std::size_t i = start+1; i < end; i++) {
 
 		std::size_t id = i;
 		for (; arr[(id - 1)] > arr[id] && id >0;) {
