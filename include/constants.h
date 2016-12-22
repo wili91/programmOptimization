@@ -25,6 +25,7 @@ static const std::size_t 	L1_CACHE_SIZE_INT = 1024;
 
 
 static const std::size_t   SORTING_THRESGHOLD = 25;
+static const std::size_t   WORST_CASE_QS = 125;
 
 const std::size_t start_size =2048;
 //const std::size_t end_size =524288;
