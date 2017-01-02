@@ -4,6 +4,16 @@
 #include <string>
 #include <random>
 
+
+
+template <typename T, size_t N>
+void checkSorted(std::array<T, N>& array) {
+    for(size_t i = 1; i < N; i++) {
+        EXPECT_TRUE(array[i - 1] <= array[i]);
+    }
+}
+
+
 template<std::size_t N>
 void genrate_array(std::array<double, N>& test_arr) {
 	//generate the array
