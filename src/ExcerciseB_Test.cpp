@@ -110,25 +110,23 @@ TEST(SelectionSort, integer){
 TEST(SelectionSort, string){
 
 	std::shared_ptr<std::array<std::string, 7>> array(
-			new std::array<std::string, 7>);
-
-	std::array<std::string, 7> array1 ={"aaa ", "bb ", " a ", "", "cc", "abc", "xyz"};
-	for (std::size_t i = 0; i < array->size(); i++) {
-			(*array)[i]	= array1[i];
-	}
+			new std::array<std::string, 7>{{"aaa ", "bb ", " a ", "", "cc", "abc", "xyz"}});
 	selection_Sort(*array,prefetch_minimum_index);
-	EXPECT_EQ("" , (*array)[0]);
+	checkSorted(*array);
 
-
-	for (std::size_t i = 0; i < array->size(); i++) {
-			(*array)[i]	= array1[i];
+	for(size_t i =0 ; i < array->size(); i++) {
+		std::cout<< (*array)[i] <<",";
 	}
-	selection_Sort(*array,minimum_two_loops_index);
-	EXPECT_EQ("" , (*array)[0]);
+	std::cout<< std::endl << std::endl;
+	std::shared_ptr<std::array<std::string, 7>> array1(
+			new std::array<std::string, 7>{{"aaa ", "bb ", " a ", "", "cc", "abc", "xyz"}});
+	selection_Sort(*array1,minimum_two_loops_index);
+	checkSorted(*array1);
 
-	for (std::size_t i = 0; i < array->size(); i++) {
-			(*array)[i]	= array1[i];
-	}
-	selection_Sort(*array,plain_minimum_index);
-	EXPECT_EQ("" , (*array)[0]);
+	std::shared_ptr<std::array<std::string, 7>> array2(
+			new std::array<std::string, 7>{{"aaa ", "bb ", " a ", "", "cc", "abc", "xyz"}});
+	selection_Sort(*array2,plain_minimum_index);
+	checkSorted(*array2);
+
+
 }
