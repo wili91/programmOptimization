@@ -21,7 +21,7 @@ TEST(SelectionSort, double){
 			new std::array<double, 10>);
 
 	genrate_array_desc(*array);
-	selection_Sort(*array,prefetch_minimum_index);
+	selection_Sort(*array);
 	double compare = 1.0;
 	for (std::size_t i = 0; i < array->size(); i++) {
 
@@ -36,7 +36,7 @@ TEST(SelectionSort, double){
 			new std::array<double, 10>);
 
 	genrate_array_desc(*array1);
-	selection_Sort(*array1,plain_minimum_index);
+	selection_Sort_Two_Loops(*array1);
 	compare = 1;
 	for (std::size_t i = 0; i < array1->size(); i++) {
 
@@ -51,7 +51,7 @@ TEST(SelectionSort, double){
 			new std::array<double, 10>);
 
 	genrate_array_desc(*array2);
-	selection_Sort(*array2,minimum_two_loops_index);
+	selection_Sort_Prefetch(*array2);
 	compare = 1;
 	for (std::size_t i = 0; i < array2->size(); i++) {
 
@@ -67,7 +67,7 @@ TEST(SelectionSort, integer){
 			new std::array<int, 10>);
 
 	genrate_array_desc(*array);
-	selection_Sort(*array,prefetch_minimum_index);
+	selection_Sort(*array);
 	int compare = 1;
 	for (std::size_t i = 0; i < array->size(); i++) {
 
@@ -82,7 +82,7 @@ TEST(SelectionSort, integer){
 			new std::array<int, 10>);
 
 	genrate_array_desc(*array1);
-	selection_Sort(*array1,plain_minimum_index);
+	selection_Sort(*array1);
 	compare = 1;
 	for (std::size_t i = 0; i < array1->size(); i++) {
 
@@ -97,7 +97,7 @@ TEST(SelectionSort, integer){
 			new std::array<int, 10>);
 
 	genrate_array_desc(*array2);
-	selection_Sort(*array2,minimum_two_loops_index);
+	selection_Sort_Two_Loops(*array2);
 	compare = 1;
 	for (std::size_t i = 0; i < array2->size(); i++) {
 
@@ -111,7 +111,7 @@ TEST(SelectionSort, string){
 
 	std::shared_ptr<std::array<std::string, 7>> array(
 			new std::array<std::string, 7>{{"aaa ", "bb ", " a ", "", "cc", "abc", "xyz"}});
-	selection_Sort(*array,prefetch_minimum_index);
+	selection_Sort(*array);
 	checkSorted(*array);
 
 	for(size_t i =0 ; i < array->size(); i++) {
@@ -120,12 +120,12 @@ TEST(SelectionSort, string){
 	std::cout<< std::endl << std::endl;
 	std::shared_ptr<std::array<std::string, 7>> array1(
 			new std::array<std::string, 7>{{"aaa ", "bb ", " a ", "", "cc", "abc", "xyz"}});
-	selection_Sort(*array1,minimum_two_loops_index);
+	selection_Sort_Two_Loops(*array1);
 	checkSorted(*array1);
 
 	std::shared_ptr<std::array<std::string, 7>> array2(
 			new std::array<std::string, 7>{{"aaa ", "bb ", " a ", "", "cc", "abc", "xyz"}});
-	selection_Sort(*array2,plain_minimum_index);
+	selection_Sort_Prefetch(*array2);
 	checkSorted(*array2);
 
 

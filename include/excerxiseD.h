@@ -40,9 +40,10 @@ void bitonic_merge(std::array<T, N>& arr1, std::array<T, N>& help,
 		std::size_t merge_index, std::size_t length, std::size_t end) {
 
 	//define the starting index, middle index and right index of current runs
-	//	[            |          ]
-	//  ^            ^          ^
-	//  left        mid        right
+	//	 <----length-->
+	//	[              |          ]
+	//  ^              ^          ^
+	//  left          mid        right
 
 	std::size_t left = merge_index;
 	std::size_t mid = std::min(end, merge_index + length);

@@ -6,11 +6,38 @@
 
 
 
+
 template <typename T, size_t N>
 void checkSorted(std::array<T, N>& array) {
     for(size_t i = 1; i < N; i++) {
         EXPECT_TRUE(array[i - 1] <= array[i]);
     }
+}
+
+template <typename T, size_t N>
+bool checkSortedAsc(std::array<T, N>& array) {
+	bool sorted = true;
+
+	//asc
+    for(size_t i = 1; i < N; i++) {
+        if(array[i - 1] >= array[i]){
+        	sorted = false;
+        }
+     }
+    return sorted;
+}
+
+template <typename T, size_t N>
+bool checkSortedDesc(std::array<T, N>& array) {
+	bool sorted = true;
+
+	//desc
+    for(size_t i = 1; i < N; i++) {
+        if(array[i - 1] <= array[i]){
+        	sorted = false;
+        }
+     }
+    return sorted;
 }
 
 

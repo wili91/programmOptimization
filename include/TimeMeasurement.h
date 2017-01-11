@@ -3,87 +3,79 @@
 #include <stdio.h>
 #include "constants.h"
 #include <algorithm>
+#include "excerciseB.h"
+#include "exerciseE.h"
 
 template<std::size_t N, typename T>
 struct Measurement {
-	void measure_time_sorting(std::array<T, N>& test_arr, SORTING sort,
-			MINIMUM min) {
 
-		auto sFunc = chooseSorting(sort);
-		auto mFunc = chooseMinimum(min);
+	void measure_time_sorting_all(std::array<T, N>& test_arr) {
 
-		flush_cache();
+		for (int sort = 0; sort < 8; sort++) {
+			std::cout << std::endl;
+			std::cout<< "-------------------------Next Time Measurement------------------"<< std::endl;
+			std::cout << std::endl;
 
-		auto start_time = std::chrono::high_resolution_clock::now();
-		sFunc(test_arr, mFunc);
-		auto end_time = std::chrono::high_resolution_clock::now();
+			auto sFunc = chooseSorting(sort);
 
-		std::cout
-				<< std::chrono::duration_cast<std::chrono::milliseconds>(
-						end_time - start_time).count() << "      ";
+			for (int type = 0; type < 3; sort++) {
+				generate_Array_type(type, test_arr);
 
-		std::shared_ptr<std::array<T, N * 2>> next_array(
-				new std::array<T, N * 2>);
-
-		Measurement<N * 2, T> tm;
-		tm.measure_time_sorting(*next_array, sort, min);
-	}
-
-	void measure_time_sorting_all(std::array<T, N>& test_arr, ARRAYTYPE type,
-			SORTING sort) {
-
-		//to deep copy the test array
-		std::shared_ptr<std::array<T, N>> work_array(
-				new std::array<T, N>);
-		generate_Array_type(type, test_arr);
+				std::cout << N << ",";
 
 
-		std::cout << N << ",";
-		auto sFunc = chooseSorting(sort);
+				flush_cache();
 
-		for (int min = MINIMUM::plain_min; min <= MINIMUM::prefretch_min;
-				min++) {
-			(*work_array) = test_arr;
-			flush_cache();
-			auto mFunc = chooseMinimum(min);
-			auto start_time = std::chrono::high_resolution_clock::now();
-			sFunc(*work_array, mFunc);
-			auto end_time = std::chrono::high_resolution_clock::now();
+				auto start_time = std::chrono::high_resolution_clock::now();
+				sFunc(test_arr);
+				auto end_time = std::chrono::high_resolution_clock::now();
 
-			std::cout
-					<< std::chrono::duration_cast<std::chrono::milliseconds>(
-							end_time - start_time).count() << ",";
+				std::cout
+						<< std::chrono::duration_cast<std::chrono::milliseconds>(
+								end_time - start_time).count() << "," << std::endl;
+
+				std::shared_ptr<std::array<T, N * 2>> next_array(
+						new std::array<T, N * 2>);
+
+				Measurement<N * 2, T> tm;
+				tm.measure_time_sorting_all(*next_array);
+			}
 		}
-		std::cout << std::endl;
-
-		std::shared_ptr<std::array<T, N * 2>> next_array(
-				new std::array<T, N * 2>);
-
-		Measurement<N * 2, T> tm;
-		tm.measure_time_sorting_all(*next_array, type, sort);
 	}
 
 	auto chooseSorting(int sort) {
 		switch (sort) {
 		case 0:
+			std::cout<<"Selection Sort:" << std::endl;
 			return selection_Sort<N, T> ;
 			break;
-		default:
-			std::cout << std::endl << "No such sorting function" << std::endl;
-			exit(1);
-		}
-	}
-
-	auto chooseMinimum(int min) {
-		switch (min) {
-		case 0:
-			return plain_minimum_index<N, T> ;
-			break;
 		case 1:
-			return minimum_two_loops_index<N, T> ;
+			std::cout<<"Selection Sort Two Loops:" << std::endl;
+			return selection_Sort_Two_Loops<N, T> ;
 			break;
 		case 2:
-			return prefetch_minimum_index<N, T> ;
+			std::cout<<"Selection Sort Prefetch:" << std::endl;
+			return selection_Sort_Prefetch<N, T> ;
+			break;
+		case 3:
+			std::cout<<"Simple InsertionSort:" << std::endl;
+			return simple_Insertionsort<N, T> ;
+			break;
+		case 4:
+			std::cout<<"Prefetch Insertion Sort:" << std::endl;
+			return prefetch_Insertionsort_Wrapper<N, T> ;
+			break;
+		case 5:
+			std::cout<<"Bottom Up Merge Sort:" << std::endl;
+			return bottomUpMergeSort<N, T> ;
+			break;
+		case 6:
+			std::cout<<"Three Way Partition Quick Sort:" << std::endl;
+			return three_way_partition_sort<N, T> ;
+			break;
+		case 7:
+			std::cout<<"Hybrid Sort:" << std::endl;
+			return start_hybrid_sort<N, T> ;
 			break;
 		default:
 			std::cout << std::endl << "No such sorting function" << std::endl;
@@ -94,16 +86,20 @@ struct Measurement {
 	void generate_Array_type(int type, std::array<T, N>& test_arr) {
 		switch (type) {
 		case 0:
+			std::cout<<"mit zufälligem Array:" << std::endl;
 			genrate_array(test_arr);
 			break;
 		case 1:
-			genrate_array_asc(test_arr) ;
+			std::cout<<"mit aufsteigendem Array:" << std::endl;
+			genrate_array_asc(test_arr);
 			break;
 		case 2:
-			genrate_array_desc(test_arr)  ;
+			std::cout<<"mit absteigendem Array:" << std::endl;
+			genrate_array_desc(test_arr);
 			break;
 		default:
-			std::cout << std::endl << "No such generation function" << std::endl;
+			std::cout << std::endl << "No such generation function"
+					<< std::endl;
 			exit(1);
 		}
 	}
@@ -112,14 +108,13 @@ struct Measurement {
 
 template<typename T>
 struct Measurement<end_size, T> {
-	void measure_time_sorting(std::array<T, end_size>& test_arr, SORTING sort,
-			MINIMUM min) {
+//	void measure_time_sorting(std::array<T, end_size>& test_arr, SORTING sort,
+//			MINIMUM min) {
+//
+//	}
 
-	}
-
-	void measure_time_sorting_all(std::array<T, end_size>& test_arr,
-			ARRAYTYPE type, SORTING sort) {
-		std::cout<< "Ended," << test_arr[0]<<"," << type<<","  <<sort<<","  <<std::endl;
+	void measure_time_sorting_all(std::array<T, end_size>& test_arr) {
+		std::cout << "Ende Time testing" << test_arr[0] << std::endl;
 	}
 
 };

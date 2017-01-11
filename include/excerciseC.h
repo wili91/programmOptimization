@@ -20,12 +20,12 @@ void prefetch_Insertionsort(std::array<T, N>& arr, std::size_t start, std::size_
 	for (std::size_t i = start+1; i < end; i++) {
 
 		std::size_t id = i;
-		for (; arr[(id - 1)] > arr[id] && id >0;) {
+		for (; arr[(id - 1)] > arr[id] && id >start;) {
 			__builtin_prefetch(&arr[id - (2 * OUTER_STEP)]);
 
 
 			for (size_t k = OUTER_STEP;
-					arr[(id - 1)] > arr[id] && id > 0 && k > 0; k--, id--) {
+					arr[(id - 1)] > arr[id] && id > start && k > 0; k--, id--) {
 				std::swap(arr[(id - 1)], arr[id]);
 
 			}
@@ -33,3 +33,7 @@ void prefetch_Insertionsort(std::array<T, N>& arr, std::size_t start, std::size_
 	}
 }
 
+template<std::size_t N, typename T>
+void prefetch_Insertionsort_Wrapper(std::array<T, N>& arr) {
+	prefetch_Insertionsort(arr, 0, arr.size());
+}
