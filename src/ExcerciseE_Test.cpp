@@ -108,23 +108,23 @@ TEST(QuickSort_3Partition, String) {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//TEST(Hyprid_QuickSort_3Partition, integer) {
-//	std::array<int, 0> array0;
-//	hybrid_sort(array0, 0, array0.size());
-//	checkSorted(array0);
-//
-//	std::array<int, 1> array = { 1 };
-//	hybrid_sort(array, 0, array.size());
-//	checkSortedQuickSort(array);
-//
-//	std::array<int, 10> array1 = { 9, 7, 6, 6, 7, 1, 4, 4, 2, 1 };
-//	hybrid_sort(array1, 0, array1.size());
-//	checkSortedQuickSort(array1);
-//
-//	std::array<int, 8> array2 = { 9, 7, 6, 6, 7, 1, 4, 4 };
-//	hybrid_sort(array2, 0, array2.size());
-//	checkSortedQuickSort(array2);
-//}
+TEST(Hyprid_QuickSort_3Partition, integer) {
+	std::array<int, 0> array0;
+	start_hybrid_sort(array0);
+	checkSorted(array0);
+
+	std::array<int, 1> array = { 1 };
+	start_hybrid_sort(array);
+	checkSortedQuickSort(array);
+
+	std::array<int, 10> array1 = { 9, 7, 6, 6, 7, 1, 4, 4, 2, 1 };
+	start_hybrid_sort(array1);
+	checkSortedQuickSort(array1);
+
+	std::array<int, 8> array2 = { 9, 7, 6, 6, 7, 1, 4, 4 };
+	start_hybrid_sort(array2);
+	checkSortedQuickSort(array2);
+}
 //
 //TEST(Hyprid_QuickSort_3Partition, double) {
 //	//because unique ptr may be buggy in reclaiming ressouces
