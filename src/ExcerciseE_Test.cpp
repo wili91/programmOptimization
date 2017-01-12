@@ -38,6 +38,11 @@ TEST(QuickSort_3Partition, integer) {
 	std::array<int, 8> array2 = { 9, 7, 6, 6, 7, 1, 4, 4 };
 	three_way_partition_sort(array2);
 	checkSorted(array2);
+
+	std::array<int, 10> array3 = { 9, 7, 6, 6, 7, 1, 4, 4, 2, 1 };
+	three_way_partition_sort(array3);
+	checkSortedQuickSort(array3);
+
 }
 
 TEST(QuickSort_3Partition, double) {
@@ -125,33 +130,33 @@ TEST(Hyprid_QuickSort_3Partition, integer) {
 	start_hybrid_sort(array2);
 	checkSortedQuickSort(array2);
 }
-//
+
 //TEST(Hyprid_QuickSort_3Partition, double) {
 //	//because unique ptr may be buggy in reclaiming ressouces
 //	std::shared_ptr<std::array<double, 8>> array(new std::array<double, 8>);
 //
 //	genrate_array_desc(*array);
-//	hybrid_sort((*array), 0, array->size());
+//	start_hybrid_sort((*array));
 //	checkSorted(*array);
 //}
-//
+
 //TEST(Hyprid_QuickSort_3Partition, double_no_power2) {
 //
 //	std::array<double, 0> array0;
-//	hybrid_sort(array0, 0, array0.size());
+//	start_hybrid_sort(array0);
 //	checkSorted(array0);
 //
 //	std::array<double, 1> array = { 1.9 };
-//	hybrid_sort(array, 0, array.size());
+//	start_hybrid_sort(array);
 //	checkSorted(array);
 //
 //	std::array<double, 8> array1 = { 9.5, 7.1, 6.9, 6.4, 7.9, 1., 4., 4. };
-//	hybrid_sort(array1, 0, array1.size());;
+//	start_hybrid_sort(array1);
 //	checkSorted(array1);
 //
 //	std::array<double, 10> array2 = { 9.5, 7.1, 6.9, 6.4, 7.9, 1., 4., 4., 2.6,
 //			1.1 };
-//	hybrid_sort(array2, 0, array2.size());
+//	start_hybrid_sort(array2);
 //	checkSorted(array2);
 //
 //}

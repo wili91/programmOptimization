@@ -6,7 +6,7 @@
 template<std::size_t N, typename T>
 void quick_sort_3way(std::array<T, N>& array, size_t left, size_t right) {
 
-	if (right <= 1 && right <= left) {
+	if (right < 1 && right <= left) {
 		return;
 	}
 	size_t i = left - 1, j = right;
@@ -79,16 +79,15 @@ void three_way_partition_sort(std::array<T, N>& array) {
 template<std::size_t N, typename T>
 void hybrid_partition_sort(std::array<T, N>& array, size_t left, size_t right) {
 
-	if (right <= left) {
+	if (right < 1 && right <= left) {
 		return;
 	}
 
-	if ((right - left) < SORTING_THRESGHOLD) {
-
-		prefetch_Insertionsort(array, left, right + 1);
+	if ((right - left) <= SORTING_THRESGHOLD) {
+		std::cout<<"insertion Sort"<< std::endl;
+		prefetch_Insertionsort(array, left, right+1);
 	} else {
-		// do partitioning
-
+		std::cout<<"partitioning"<< std::endl;
 		size_t i = left - 1, j = right;
 		size_t p = left, q = right - 1;
 
@@ -144,19 +143,8 @@ void hybrid_partition_sort(std::array<T, N>& array, size_t left, size_t right) {
 			std::swap(array[i], array[k]);
 		}
 
-		if (((j - left) > (10 * (right - i)))
-				|| (10 * (j - left) < (right - i))) { //Worst Case
-			size_t mid = (right + left) / 2;
-			hybrid_partition_sort(array, left, mid);
-			hybrid_partition_sort(array, mid + 1, right);
-
-			std::shared_ptr<std::array<T, N> > help_array(new std::array<T, N>);
-			bitonic_merge(array, *help_array, left, mid, right);
-
-		} else {
-			hybrid_partition_sort(array, left, j);
-			hybrid_partition_sort(array, i, right);
-		}
+		hybrid_partition_sort(array, left, j);
+		hybrid_partition_sort(array, i, right);
 	}
 
 }
