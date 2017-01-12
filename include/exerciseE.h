@@ -84,10 +84,8 @@ void hybrid_partition_sort(std::array<T, N>& array, size_t left, size_t right) {
 	}
 
 	if ((right - left) <= SORTING_THRESGHOLD) {
-		std::cout<<"insertion Sort"<< std::endl;
-		prefetch_Insertionsort(array, left, right+1);
+		prefetch_Insertionsort(array, left, right + 1);
 	} else {
-		std::cout<<"partitioning"<< std::endl;
 		size_t i = left - 1, j = right;
 		size_t p = left, q = right - 1;
 
@@ -143,44 +141,14 @@ void hybrid_partition_sort(std::array<T, N>& array, size_t left, size_t right) {
 			std::swap(array[i], array[k]);
 		}
 
-		if(((j - left) < (WORST_CASE_QS * (right - i))) || (((j - left) * WORST_CASE_QS < (right -i)))) {
-			std::cout<<"worst: right-left "<<(right -left) << " mid " << (left + right) / 2<< std::endl;
-			std::cout<<"NOT merged: ++";
-			for(size_t l = left; l < right; l++ ) {
-				std::cout<<array[l] <<",";
-			}
-			std::cout<<"++"<<std::endl;
-
+		if (((j - left) < (WORST_CASE_QS * (right - i)))
+				|| (((j - left) * WORST_CASE_QS < (right - i)))) {
 			size_t mid = (left + right) / 2;
 			hybrid_partition_sort(array, left, mid);
-			std::cout<<"first half: |";
-			for(size_t l = left; l <= mid; l++ ) {
-				std::cout<<array[l]<<",";
-			}
-			std::cout<<"|"<<std::endl;
+			hybrid_partition_sort(array, mid + 1, right);
 
-			hybrid_partition_sort(array, mid+1, right);
-			std::cout<<"second half: |";
-			for(size_t l = mid+1; l < right; l++ ) {
-				std::cout<<array[l]<<",";
-			}
-			std::cout<<"|"<<std::endl;
-//			bitonic_merge(arr, (*help_array), merge_index, length, arr.size());
-
-			std::cout<<"last element mid: "<< array[mid]<< " mid " << mid<<std::endl;
-			std::cout<<"BEFORE merged: --";
-			for(size_t l = left; l < right; l++ ) {
-				std::cout<<array[l]<<",";
-			}
-			std::cout<<"--"<<std::endl;
 			std::shared_ptr<std::array<T, N> > help_array(new std::array<T, N>);
-			bitonic_merge(array, *help_array, left, mid+1, right+1);
-
-			std::cout<<"merged: ||";
-			for(size_t l = left; l < right; l++ ) {
-				std::cout<<array[l]<<",";
-			}
-			std::cout<<"||"<<std::endl;
+			bitonic_merge(array, *help_array, left, mid + 1, right + 1);
 
 		} else {
 			hybrid_partition_sort(array, left, j);
