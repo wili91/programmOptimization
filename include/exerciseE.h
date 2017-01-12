@@ -44,8 +44,12 @@ void quick_sort_3way(std::array<T, N>& array, size_t left, size_t right) {
 	}
 	size_t lt = left;
 	size_t gt = right;
-	T pivot = array[left];
+	size_t ppos = (left + right) / 2;
+	T pivot = array[ppos];
+	std::swap(array[ppos], array[left]);
+
 	size_t ctr = left;
+
 	while (ctr <= gt) {
 		if (pivot > array[ctr]) {
 			std::swap(array[lt++], array[ctr++]);
@@ -56,7 +60,9 @@ void quick_sort_3way(std::array<T, N>& array, size_t left, size_t right) {
 		}
 	}
 
-	quick_sort_3way(array, left, (lt == 0) ? 0 : (lt - 1));
+	lt = (lt == 0) ? 0 : lt - 1;
+
+	quick_sort_3way(array, left, lt);
 	quick_sort_3way(array, gt + 1, right);
 
 }
@@ -64,7 +70,7 @@ void quick_sort_3way(std::array<T, N>& array, size_t left, size_t right) {
 template<std::size_t N, typename T>
 void three_way_partition_sort(std::array<T, N>& array) {
 	if (N > 1) {
-		quick_sort_3way(array, 0, N-1);
+		quick_sort_3way(array, 0, N - 1);
 	}
 }
 
@@ -73,6 +79,11 @@ void hybrid_partition_sort(std::array<T, N>& array, size_t left, size_t right) {
 
 	if (right <= left) {
 		return;
+	}
+
+	if ((right - left) < SORTING_THRESGHOLD) {
+
+		prefetch_Insertionsort(array, left, right + 1);
 	}
 	size_t lt = left;
 	size_t gt = right;
@@ -88,20 +99,11 @@ void hybrid_partition_sort(std::array<T, N>& array, size_t left, size_t right) {
 		}
 	}
 
-	lt = (lt == 0) ? 0 : lt-1;
+	lt = (lt == 0) ? 0 : lt - 1;
 
-	if ((lt - left) < SORTING_THRESGHOLD) {
-		prefetch_Insertionsort(array, left, lt+1);
-	} else {
-		hybrid_partition_sort(array, left, lt);
-	}
+	hybrid_partition_sort(array, left, lt);
+	hybrid_partition_sort(array, gt + 1, right);
 
-	if ((right - (gt+1)) < SORTING_THRESGHOLD) {
-
-		prefetch_Insertionsort(array, gt+1, right+1);
-	} else {
-		hybrid_partition_sort(array, gt+1, right);
-	}
 }
 /**
  * Detects and handles Worst Case an uses Insetion Sort once partitions get to small
@@ -117,7 +119,6 @@ void hybrid_sort(std::array<T, N>& array, size_t left, size_t right) {
 		hybrid_partition_sort(array, 0, N - 1);
 
 	} else {
-
 
 		size_t mid = N / 2;
 		hybrid_partition_sort(array, 0, mid - 1);

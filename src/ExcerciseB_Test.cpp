@@ -114,9 +114,7 @@ TEST(SelectionSort, string){
 	selection_Sort(*array);
 	checkSorted(*array);
 
-	for(size_t i =0 ; i < array->size(); i++) {
-		std::cout<< (*array)[i] <<",";
-	}
+
 	std::cout<< std::endl << std::endl;
 	std::shared_ptr<std::array<std::string, 7>> array1(
 			new std::array<std::string, 7>{{"aaa ", "bb ", " a ", "", "cc", "abc", "xyz"}});
