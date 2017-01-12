@@ -131,69 +131,69 @@ TEST(Hyprid_QuickSort_3Partition, integer) {
 	checkSortedQuickSort(array2);
 }
 
-//TEST(Hyprid_QuickSort_3Partition, double) {
-//	//because unique ptr may be buggy in reclaiming ressouces
-//	std::shared_ptr<std::array<double, 8>> array(new std::array<double, 8>);
-//
-//	genrate_array_desc(*array);
-//	start_hybrid_sort((*array));
-//	checkSorted(*array);
-//}
+TEST(Hyprid_QuickSort_3Partition, double) {
+	//because unique ptr may be buggy in reclaiming ressouces
+	std::shared_ptr<std::array<double, 8>> array(new std::array<double, 8>);
 
-//TEST(Hyprid_QuickSort_3Partition, double_no_power2) {
-//
-//	std::array<double, 0> array0;
-//	start_hybrid_sort(array0);
-//	checkSorted(array0);
-//
-//	std::array<double, 1> array = { 1.9 };
-//	start_hybrid_sort(array);
-//	checkSorted(array);
-//
-//	std::array<double, 8> array1 = { 9.5, 7.1, 6.9, 6.4, 7.9, 1., 4., 4. };
-//	start_hybrid_sort(array1);
-//	checkSorted(array1);
-//
-//	std::array<double, 10> array2 = { 9.5, 7.1, 6.9, 6.4, 7.9, 1., 4., 4., 2.6,
-//			1.1 };
-//	start_hybrid_sort(array2);
-//	checkSorted(array2);
-//
-//}
-//
-//TEST(Hyprid_QuickSort_3Partition, String) {
-//
-//	std::shared_ptr<std::array<std::string, 1>> arr(
-//			new std::array<std::string, 1> { { "aaa" } });
-//	hybrid_sort((*arr), 0, arr->size());
-//	checkSorted(*arr);
-//
-//	std::shared_ptr<std::array<std::string, 1>> arr1(
-//			new std::array<std::string, 1> { { "" } });
-//	hybrid_sort((*arr1), 0, arr1->size());
-//	checkSorted(*arr1);
-//
-//	std::shared_ptr<std::array<std::string, 2>> arr2(
-//			new std::array<std::string, 2> { { "", "a" } });
-//	hybrid_sort((*arr2), 0, arr2->size());
-//	checkSorted(*arr2);
-//
-//	std::shared_ptr<std::array<std::string, 7>> arr3(
-//			new std::array<std::string, 7> { { "Äpfel ", "und ", " Birnen ",
-//					"und", " Bananen ", "sind ", "gesund." } });
-//	hybrid_sort((*arr3), 0, arr3->size());
-//	checkSorted(*arr3);
-//
-//	std::shared_ptr<std::array<std::string, 7>> arr4(
-//			new std::array<std::string, 7> { { "aaa ", "bb ", " a ", "", "cc",
-//					"abc", "xyz" } });
-//	hybrid_sort((*arr4), 0, arr4->size());
-//	checkSorted(*arr4);
-//
-//	std::shared_ptr<std::array<std::string, 3>> arr5(
-//			new std::array<std::string, 3> { { "Hallo ", "Welt ", "!" } });
-//	hybrid_sort((*arr5), 0, arr5->size());
-//	checkSorted(*arr5);
-//
-//}
-//
+	genrate_array_desc(*array);
+	start_hybrid_sort((*array));
+	checkSorted(*array);
+}
+
+TEST(Hyprid_QuickSort_3Partition, double_no_power2) {
+
+	std::array<double, 0> array0;
+	start_hybrid_sort(array0);
+	checkSorted(array0);
+
+	std::array<double, 1> array = { 1.9 };
+	start_hybrid_sort(array);
+	checkSorted(array);
+
+	std::array<double, 8> array1 = { 9.5, 7.1, 6.9, 6.4, 7.9, 1., 4., 4. };
+	start_hybrid_sort(array1);
+	checkSorted(array1);
+
+	std::array<double, 10> array2 = { 9.5, 7.1, 6.9, 6.4, 7.9, 1., 4., 4., 2.6,
+			1.1 };
+	start_hybrid_sort(array2);
+	checkSorted(array2);
+
+}
+
+TEST(Hyprid_QuickSort_3Partition, String) {
+
+	std::shared_ptr<std::array<std::string, 1>> arr(
+			new std::array<std::string, 1> { { "aaa" } });
+	start_hybrid_sort((*arr));
+	checkSorted(*arr);
+
+	std::shared_ptr<std::array<std::string, 1>> arr1(
+			new std::array<std::string, 1> { { "" } });
+	start_hybrid_sort((*arr1));
+	checkSorted(*arr1);
+
+	std::shared_ptr<std::array<std::string, 2>> arr2(
+			new std::array<std::string, 2> { { "", "a" } });
+	start_hybrid_sort((*arr2));
+	checkSorted(*arr2);
+
+	std::shared_ptr<std::array<std::string, 7>> arr3(
+			new std::array<std::string, 7> { { "Äpfel ", "und ", " Birnen ",
+					"und", " Bananen ", "sind ", "gesund." } });
+	start_hybrid_sort((*arr3));
+	checkSorted(*arr3);
+
+	std::shared_ptr<std::array<std::string, 7>> arr4(
+			new std::array<std::string, 7> { { "aaa ", "bb ", " a ", "", "cc",
+					"abc", "xyz" } });
+	start_hybrid_sort((*arr4));
+	checkSorted(*arr4);
+
+	std::shared_ptr<std::array<std::string, 3>> arr5(
+			new std::array<std::string, 3> { { "Hallo ", "Welt ", "!" } });
+	start_hybrid_sort((*arr5));
+	checkSorted(*arr5);
+
+}
+
