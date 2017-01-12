@@ -21,13 +21,13 @@
 int main(int arg, char** argc) {
 
 //	//because unique ptr may be buggy in reclaiming ressouces
-	std::shared_ptr<std::array<double, start_size>> array(
-			new std::array<double, start_size>);
-
-	genrate_array(*array);
-	Measurement<start_size, double> measure_double;
-
-	measure_double.measure_time_sorting_all(*array);
+//	std::shared_ptr<std::array<double, start_size>> array(
+//			new std::array<double, start_size>);
+//
+//	genrate_array(*array);
+//	Measurement<start_size, double> measure_double;
+//
+//	measure_double.measure_time_sorting_all(*array);
 
 
 

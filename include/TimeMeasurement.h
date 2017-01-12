@@ -22,8 +22,8 @@ struct Measurement {
 			std::cout << "------------------" << std::endl;
 
 
-			std::cout <<  "N| rand | asc |desc  "<< std::endl;
-			std::cout << "------------------" << std::endl;
+			std::cout <<  "N, rand , asc ,desc  "<< std::endl;
+//			std::cout << "------------------" << std::endl;
 			std::cout << N << ",";
 			for (int type = 0; type < 3; type++) {
 				generate_Array_type(type, test_arr);
@@ -91,10 +91,10 @@ struct Measurement {
 			;
 			return three_way_partition_sort<N, T> ;
 			break;
-		case 7:
-			std::cout << std::endl << "Hybrid Sort: ";
-			return start_hybrid_sort<N, T> ;
-			break;
+//		case 7:
+//			std::cout << std::endl << "Hybrid Sort: ";
+//			return start_hybrid_sort<N, T> ;
+//			break;
 		default:
 			std::cout << std::endl << "No such sorting function";
 			exit(1);
